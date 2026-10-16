@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: story-driven-business-idea-generator
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Server-side API keys — set these in the Render dashboard (Secret Files /
+      # Environment). Never commit real keys to the repo.
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SERPAPI_KEY
+        sync: false
+      - key: ELEVENLABS_KEY
+        sync: false
+      # Optional: point the app at a remote Jan/Gemma endpoint if you run one.
+      - key: JAN_BASE_URL
+        value: http://localhost:1337/v1
+      # Optional: ElevenLabs voice + model overrides
+      - key: ELEVENLABS_MODEL
+        value: eleven_multilingual_v2

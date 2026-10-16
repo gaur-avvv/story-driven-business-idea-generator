@@ -1,0 +1,8 @@
+{
+  "name": "Story-Driven Business Idea Generator",
+  "description": "An AI-powered web application that generates novel business ideas by synthesizing real-time market trends with principles from key business books, delivered as a compelling story with audio narration.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
