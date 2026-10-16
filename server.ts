@@ -262,9 +262,11 @@ async function startServer() {
     // Serve the built SPA from /dist (built by `npm run build`)
     const distPath = path.resolve(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    // SPA fallback: any non-API GET returns index.html
-    app.get('*', (req, res, next) => {
-      if (req.path.startsWith('/api/')) return next();
+    // SPA fallback: any non-API GET returns index.html.
+    // Express 5 / path-to-regexp v8 removed the bare '*' route, so use a
+    // path-less middleware instead.
+    app.use((req, res, next) => {
+      if (req.method !== 'GET' || req.path.startsWith('/api/')) return next();
       res.sendFile(path.join(distPath, 'index.html'), (err) => {
         if (err) {
           res.status(200).send('Story-Driven Business Idea Generator — build output not found. Run `npm run build` first.');
